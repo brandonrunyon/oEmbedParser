@@ -13,6 +13,9 @@ class oEmbedParser {
 	private $_format;
 	private $_provider;
 	
+	private $_width = null;
+	private $_height = null;
+	
 	//well known provider dictionary
 	private $_providers = array(
 		'youtube' => array(
@@ -34,6 +37,23 @@ class oEmbedParser {
 		return $this;
 	}
 	
+	private function _setMaxHeight($height) {
+		$this->_height = (integer) $height;
+		return $this;
+	}
+	
+	private function _setMaxWidth($width) {
+		$this->_width = (integer) $width;
+		return $this;
+	}
+	
+	private function _getWidth() {
+		return $this->_height;
+	}
+	
+	private function _getHeight() {
+		return $this->_height;
+	}
 	
 	private function _encode($provider, $url) {
 		$api = $this->_providers[$provider]['endpoint'];
@@ -48,6 +68,11 @@ class oEmbedParser {
 				$endpoint = $api . $this->_format . '?url=' . $encodedURL;
 			break;
 		}
+		
+		if ($this->_height !== null && $this->_width !== null ) {
+			$endpoint .= '&maxheight=' . $this->_getHeight() . '&maxwidth=' . $this->_getWidth();
+		}
+		
 		return $endpoint;
 	}
 	
@@ -96,9 +121,8 @@ class oEmbedParser {
 	
 	private function _setResponse() {
 		$data = @file_get_contents($this->_endpoint);
-		/* $params = array();
-		$params = $data;
-		if ($this->_format=='xml') {
+		
+		/*if ($this->_format=='xml') {
 			$params = $this->_XML_To_JSON($data);
 		} else {
 			$params = $data;
@@ -124,6 +148,13 @@ class oEmbedParser {
 		return $this;
 	}
 	
+	
+	public function setMaxDimensions($width, $height) {
+		$this->_setMaxWidth($width);
+		$this->_setMaxHeight($height);
+		return $this;
+	}
+	
 	public function execute() {
 		$this->_endpoint = $this->_encode($this->_provider, $this->_url);
 		$this->_setResponse();
@@ -136,7 +167,6 @@ class oEmbedParser {
 	}
 	
 }
-
 
 ?>
 
