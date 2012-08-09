@@ -96,9 +96,9 @@ class oEmbedParser {
 	
 	private function _setResponse() {
 		$data = @file_get_contents($this->_endpoint);
-		$params = array();
+		/* $params = array();
 		$params = $data;
-		/*if ($this->_format=='xml') {
+		if ($this->_format=='xml') {
 			$params = $this->_XML_To_JSON($data);
 		} else {
 			$params = $data;
