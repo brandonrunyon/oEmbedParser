@@ -7,6 +7,9 @@ $oe = new oEmbedParser('http://vimeo.com/7100569'); //optional parameter for url
 
 //or set/override after the fact... $oe->setURL('http://vimeo.com/7100569');
 
+//you can set max height and width here if you want...
+$oe->setDimensions(100, 100);
+
 //supports method chaining
 $oe->setFormat('json')->->setProvider('vimeo')->execute(); //set format and provider and then execute
 
