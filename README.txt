@@ -11,7 +11,7 @@ $oe = new oEmbedParser('http://vimeo.com/7100569'); //optional parameter for url
 $oe->setDimensions(100, 100);
 
 //supports method chaining
-$oe->setFormat('json')->->setProvider('vimeo')->execute(); //set format and provider and then execute
+$oe->setFormat('json')->setProvider('vimeo')->execute(); //set format and provider and then execute
 
 //simple get() interface returns in set format
 print $oe->get();
